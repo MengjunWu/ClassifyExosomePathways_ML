@@ -150,4 +150,18 @@ decay_rate <- function(x, decay){
   dr
 }
 
+CalculateCGFromSequenceSet <- function(SequenceSet, letters=c("G", "C"), window){
+  tmp <- SequenceSet
+  tmp.no <- length(tmp)
+  tmp.names <- names(tmp)
+  res <- c()
+  seqname <- c()
+  for(i in 1: tmp.no){
+    tmp.seq <- rowSums(letterFrequencyInSlidingView(tmp[[i]], view.width=window, letters=letters))/window
+    res <- rbind(res, tmp.seq)
+    seqname <- c(seqname, tmp.names[i])
+  }
+  row.names(res) <- seqname
+  res
+}
 
