@@ -29,7 +29,7 @@ Rscript 08_multiClassPrediction_SamplePreparation.R
 
 ./09_RunRandomForest_multiClass.sh -f <dir_for_multiclass_classification>
 
-### Run alternative Boruta feature selection
+### Run alternative feature selection method Boruta 
 
 ./10_RunRandomForest_Boruta.sh -f <dir_for_each_binary_classification>
 
