@@ -3,7 +3,7 @@ library("tidyverse")
 library("rtracklayer")
 library("dplyr")
 library("reshape2")
-source("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/scripts/ExtractFeatures/FeatureExtraction_function.R")
+source("/binf-isilon/sandelin/people/mengjun/Exosome_ML/ExtractFeatures/FeatureExtraction_function.R")
 
 option_list = list(  
   make_option("--bedfile", type="character", default=NULL, 
@@ -25,7 +25,6 @@ windowup <- opt$windowup
 windowdn <- opt$windowdn
 outdir <- opt$outdir
 
-bigwigdir <- '/binf-isilon/sandelin/people/mengjun/uTSS/Downloaded_data/NET_seq_accessibility_hg38/'
 bw_fnames_base <- dir(bigwigdir) %>% keep(grepl('plus.bw', .)) %>% sub('_plus.bw', '', .)
 
 head(bw_fnames_base)
