@@ -4,7 +4,7 @@ library("dplyr")
 library("reshape2")
 library("Biostrings")
 library("seqPattern")
-source("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/scripts/ExtractFeatures/FeatureExtraction_function.R")
+source("/binf-isilon/sandelin/people/mengjun/Exosome_ML/ExtractFeatures/FeatureExtraction_function.R")
 
 option_list = list(  
   make_option("--datadir", type="character", default=NULL, 
@@ -20,7 +20,7 @@ datadir <- opt$datadir
 overlapfile <- opt$overlapfile
 outdir <- opt$outdir
 
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/RBP_id_unique.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/RBP_id_unique.rda")
 RBP_id_unique_dataframe <- data.frame(RBP_id = RBP_id_unique)
 RBP_id_unique_dataframe$RBP_id <- as.vector(RBP_id_unique_dataframe$RBP_id)
 
