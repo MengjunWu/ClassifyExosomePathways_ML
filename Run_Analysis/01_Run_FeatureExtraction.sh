@@ -32,7 +32,7 @@ bedtools getfasta -fi ${genomefasta} -bed ${bedfile2} -name -s > ${filedir}TES.w
 
 
 ##get all RBP overlapping files
-RBPfile=/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/RBP_bindingSite_CLIP_sorted.bed
+RBPfile=/binf-isilon/sandelin/people/mengjun/Downloaded_data/RBP_POSTAR2/RBP_bindingSite_CLIP_sorted.bed
 bedfileTES=${filedir}TES.upstream500.bed
 bedfileTSS=${filedir}TSS.downstream500.bed
 
@@ -50,13 +50,13 @@ fastafileTSS=${filedir}TSS.window1100.fa
 fastafileTES=${filedir}TES.window1100.fa
 
 ##Chromatin enviroment
-chredir=/binf-isilon/sandelin/people/mengjun/uTSS/Downloaded_data/HistoneMarkers_hg38/
+chredir=/binf-isilon/sandelin/people/mengjun/Downloaded_data/HistoneMarkers_hg38/
 chromatinwindowsize=500
 Rscript-3.6.1 ${scriptdir}Extract_Chromatin_Environment.R --bedfile ${bedfile1} --bigwigdir ${chredir} --windowsize ${chromatinwindowsize} --outdir ${featureout}TSS_
 Rscript-3.6.1 ${scriptdir}Extract_Chromatin_Environment.R --bedfile ${bedfile2} --bigwigdir ${chredir} --windowsize ${chromatinwindowsize} --outdir ${featureout}TES_
 
 ##Transcription level
-transdir=/binf-isilon/sandelin/people/mengjun/uTSS/Downloaded_data/NET_seq_accessibility_hg38/
+transdir=/binf-isilon/sandelin/people/mengjun/Downloaded_data/NET_seq_accessibility_hg38/
 transwindowup=100
 transwindowdn=500
 Rscript-3.6.1 ${scriptdir}Extract_Transcription_Levels.R --bedfile ${bedfile1} --bigwigdir ${transdir} --windowup ${transwindowup} --windowdn ${transwindowdn} --outdir ${featureout}
