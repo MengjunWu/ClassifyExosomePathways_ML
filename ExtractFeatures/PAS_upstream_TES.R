@@ -4,7 +4,7 @@ library("dplyr")
 library("reshape2")
 library("Biostrings")
 library("seqPattern")
-source("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/scripts/ExtractFeatures/FeatureExtraction_function.R")
+source("/binf-isilon/sandelin/people/mengjun/Exosome_ML/ExtractFeatures/FeatureExtraction_function.R")
 
 option_list = list(  
   make_option("--fastafiledir", type="character", default=NULL, 
@@ -19,15 +19,13 @@ outdir <- opt$outdir
 
 SequenceSet <- readDNAStringSet(fastafiledir)
 
-##For PAS relative location is fixed###
-##PAS, -5 to -50
 
 center.position <- 1101
 start.PAS <- center.position - 50
 end.PAS <- center.position - 1
 SequenceSet.PAS <- DNAStringSet(x=SequenceSet, start=start.PAS, end=end.PAS)
 
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/pas.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/pas.rda")
 
 PASmotif <- list(PAS=pas, RBP.ID=c("PAS"))
 motif.PAS.freq <- data.frame(motif_pwm_hits(SequenceSet.PAS, motif.pwm.list = PASmotif))
