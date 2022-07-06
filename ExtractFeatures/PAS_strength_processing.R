@@ -18,5 +18,3 @@ row.names(PAS.score) <- PAS.score.name
 
 save(PAS.score, file=paste0(outdir, "PAS.score.rda"))
 
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/PAS.score.rda")
-
