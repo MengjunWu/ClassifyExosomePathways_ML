@@ -8,17 +8,17 @@ INR.pfm <- getMatrixByName(db, name="INR")
 TATA_box <- toPWM(TATA.pfm)@profileMatrix
 INR <- toPWM(INR.pfm)@profileMatrix
 
-save(TATA_box, file="/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/TATA_box.rda")
-save(INR, file="/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/INR.rda")
+save(TATA_box, file="/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/TATA_box.rda")
+save(INR, file="/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/INR.rda")
 
 
-ss5 <- as.matrix(data.table::fread("/binf-isilon/sandelin/people/mengjun/ASAP_example/jasparMotif/ss5/ss5_readableform"))
+ss5 <- as.matrix(data.table::fread("/binf-isilon/sandelin/people/mengjun/Exosome_ML/data/ss5_readableform"))
 row.names(ss5) <- c("A", "C", "G", "T")
 ss5 <- PWM(ss5)
-save(ss5, file="/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/ss5.rda")
+save(ss5, file="/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/Input_feature_preparation/ss5.rda")
 
 
-pas <- as.matrix(data.table::fread("/binf-isilon/sandelin/people/mengjun/ASAP_example/jasparMotif/awtaaa/pas_readableform"))
+pas <- as.matrix(data.table::fread("/binf-isilon/sandelin/people/mengjun/Exosome_ML/data/pas_readableform"))
 row.names(pas) <- c("A", "C", "G", "T")
 pas <- PWM(pas)
-save(pas, file="/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/pas.rda")
+save(pas, file="/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/pas.rda")
