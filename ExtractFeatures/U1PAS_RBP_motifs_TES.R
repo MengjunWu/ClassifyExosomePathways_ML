@@ -4,7 +4,7 @@ library("dplyr")
 library("reshape2")
 library("Biostrings")
 library("seqPattern")
-source("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/scripts/ExtractFeatures/FeatureExtraction_function.R")
+source("/binf-isilon/sandelin/people/mengjun/Exosome_ML/ExtractFeatures/FeatureExtraction_function.R")
 
 option_list = list(  
   make_option("--fastafiledir", type="character", default=NULL, 
@@ -29,9 +29,9 @@ start.position.oneside <- center.position - onesidewindow + 1
 SequenceSet.oneside <- DNAStringSet(x=SequenceSet, start=start.position.oneside, end=center.position)
 
 
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/RBP.pwm.rda")
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/pas.rda")
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/ss5.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/RBP.pwm.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/pas.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/ss5.rda")
 
 
 U1PAS <- list(PAS=pas, ss5=ss5, RBP.ID=c("PAS", "ss5"))
