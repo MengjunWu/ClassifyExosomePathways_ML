@@ -3,7 +3,7 @@ library("tidyverse")
 library("rtracklayer")
 library("dplyr")
 library("reshape2")
-source("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/scripts/ExtractFeatures/FeatureExtraction_function.R")
+source("/binf-isilon/sandelin/people/mengjun/Exosome_ML/ExtractFeatures/FeatureExtraction_function.R")
 
 option_list = list(  
   make_option("--bedfile", type="character", default=NULL, 
@@ -21,10 +21,6 @@ bedfile <- opt$bedfile
 bigwigdir <- opt$bigwigdir
 windowsize <- opt$windowsize
 outdir <- opt$outdir
-
-#bigwigdir <- '/binf-isilon/sandelin/people/mengjun/uTSS/Downloaded_data/HistoneMarkers_hg38/'
-#bedfile <- "/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/RunPrediction/Z8sensitiveVsZ8insensitive_denovo/TSS.window1200.bed"
-#windowsize <- 100
 
 bwfiles <- list.files(bigwigdir)
 bw_fnames_base <- dir(bigwigdir) %>% keep(grepl('hg38.bw', .)) %>% sub('_hg38.bw', '', .)
