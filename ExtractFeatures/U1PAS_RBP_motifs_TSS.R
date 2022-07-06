@@ -4,7 +4,7 @@ library("dplyr")
 library("reshape2")
 library("Biostrings")
 library("seqPattern")
-source("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/scripts/ExtractFeatures/FeatureExtraction_function.R")
+source("/binf-isilon/sandelin/people/mengjun/Exosome_ML/ExtractFeatures/FeatureExtraction_function.R")
 
 option_list = list(  
   make_option("--fastafiledir", type="character", default=NULL, 
@@ -20,15 +20,14 @@ fastafiledir <- opt$fastafiledir
 ##for TSS one only care about downstream, so the window the distance from the start site
 window <- opt$onesidewindow
 outdir <- opt$outdir
-#fastafiledir <- "/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivityNew/RunPrediction/Z8sensitiveVSallinsensitive_denovo/TSS.window1100.fa"
 SequenceSet <- readDNAStringSet(fastafiledir)
 center.position <- 1101
 end.position <- center.position + window -1
 SequenceSet <- DNAStringSet(x=SequenceSet, start=center.position, end=end.position)
 
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/RBP.pwm.rda")
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/pas.rda")
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/ss5.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/RBP.pwm.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/pas.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/ss5.rda")
 RBP.pwm[["PAS"]] <-  pas
 RBP.pwm[["ss5"]] <- ss5
 RBP.pwm$RBP.ID <- c(RBP.pwm$RBP.ID, "PAS", "ss5")
