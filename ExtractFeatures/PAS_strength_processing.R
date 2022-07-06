@@ -1,14 +1,5 @@
-library("optparse")
-option_list = list(  
-  make_option("--filedir", type="character", default=NULL, 
-              help="directory for fastafile", metavar="character"),
-  make_option("--outdir", type="character", default=NULL, 
-              help="directory for the output file", metavar="character")
-); 
-
-opt = parse_args(OptionParser(option_list=option_list))
-filedir <- opt$filedir
-outdir <- opt$outdir
+filedir <- "/binf-isilon/sandelin/people/mengjun/Exosome_ML/data/PAS_score_denovo_TES205.csv"
+outdir <- "/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/"
 
 PAS.score <- read.csv(filedir)
 PAS.score.name <- unlist(lapply(as.vector(PAS.score$X), function(x)strsplit(x, split="\\:")[[1]][1]))
