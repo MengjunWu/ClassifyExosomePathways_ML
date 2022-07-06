@@ -3,7 +3,8 @@ library("rtracklayer")
 library("dplyr")
 library("reshape2")
 library("Biostrings")
-source("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivityNew/scripts/ExtractFeatures/FeatureExtraction_function.R")
+source("/binf-isilon/sandelin/people/mengjun/Exosome_ML/ExtractFeatures/FeatureExtraction_function.R")
+
 option_list = list(  
   make_option("--fastafiledir", type="character", default=NULL, 
               help="directory for fastafile", metavar="character"),
