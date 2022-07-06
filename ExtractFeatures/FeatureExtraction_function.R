@@ -165,3 +165,84 @@ CalculateCGFromSequenceSet <- function(SequenceSet, letters=c("G", "C"), window)
   res
 }
 
+getfulltable <- function(datadir){
+  class1_TSS_chrEnv <- neatload(paste0(datadir, "features/TSS_ChIPseq_result.rda"))
+  class1_TSS_nascent <- neatload(paste0(datadir, "features/Nascentseq_result.rda"))
+  class1_TSS_GCcontent <- neatload(paste0(datadir, "features/GC_content.window.rda"))
+  class1_TSS_GCspread <- neatload(paste0(datadir, "features/GC_content_spread_res.rda"))
+  class1_TSS_GCspread0.75 <- data.frame(GC_quantile0.75_spread1000=class1_TSS_GCspread[,"GC_quantile0.75_spread1000"])  
+  class1_TSS_TATAInr <- neatload(paste0(datadir, "features/Prompter_TATA_INR.rda"))
+  
+  class2_TSS_u1pasRBP <-  neatload(paste0(datadir, "features/TSS_motif_RBP_U1PAS_freq.rda"))
+  class2_TSS_RBPclip <- neatload(paste0(datadir, "features/TSS_overlap500_RBP_binding_CLIP.rda"))
+  
+  class3_TES_u1pasRBP <- neatload(paste0(datadir, "features/TES_motif_RBP_U1PAS_freq_oneside.rda"))
+  class3_TES_RBPclip <- neatload(paste0(datadir, "features/TES_upstream500_RBP_binding_CLIP.rda"))
+  class3_pas_upstream <- neatload(paste0(datadir, "features/motif.PAS.TESupstream.rda"))
+  class3_pas_strength <- neatload("/binf-isilon/sandelin/people/mengjun//Exosome_ML/Input_feature_data/PAS.score.rda")
+  class4_TES_chrEnv <- data.frame(neatload(paste0(datadir, "features/TES_ChIPseq_result.rda"))) 
+  class4_TES_chrEnv <- class4_TES_chrEnv[, !names(class4_TES_chrEnv)%in% c("GSM733759_Hela_Pol2b", "GSM733785_Hela_CTCF", "GSM1003520_Hela_Ezh2")]
+  
+  
+  featurelist <- list(class1.TSS_chrEnv=class1_TSS_chrEnv,
+                      class1.TSS_nascent=class1_TSS_nascent, 
+                      class1.TSS_GCcontent=class1_TSS_GCcontent, 
+                      class1.TSS_GCspread=class1_TSS_GCspread0.75, 
+                      class1.TSS_TATAInr=class1_TSS_TATAInr,
+                      class2.TSS_u1pasRBP=class2_TSS_u1pasRBP,
+                      class2.TSS_RBPclip=class2_TSS_RBPclip,
+                      class3.TES_u1pasRBP=class3_TES_u1pasRBP, 
+                      class3.TES_RBPclip=class3_TES_RBPclip, 
+                      class3.TES_pas_upstream=class3_pas_upstream, 
+                      class3.TES_pas_strength=class3_pas_strength, 
+                      class4.TES_chrEnv=class4_TES_chrEnv)
+  
+  
+  
+  ####extract features table
+  featureTable <- getFeatureTable(featurelist)
+  
+  classdata <- read.table(paste0(datadir, "classid.txt"), header = T)
+  featureTable$name <- row.names(featureTable)
+  featureTable <- merge(featureTable, classdata, by="name")
+  row.names(featureTable) <- featureTable$name
+  featureTable <- featureTable[, !names(featureTable)%in% c("name")]
+  featureTable.pos <- featureTable[featureTable$class=="positive", ]
+  featureTable.neg <- featureTable[featureTable$class=="negative", ]
+  res <- list()
+  featureTable.pos <- featureTable.pos[, !names(featureTable)%in% c("class")]
+  featureTable.neg <- featureTable.neg[, !names(featureTable)%in% c("class")]
+  res[["positive"]] <- featureTable.pos
+  res[["negative"]] <- featureTable.neg
+  res
+}
+
+
+
+
+getFeatureTable <- function(featurelist){
+  nt <- names(featurelist)
+  nascentname <- nt[grep(pattern = "nascent", nt)]
+  rowname.ref <- row.names(featurelist[[nascentname]])
+  featuredata <- c()
+  fnames.tmp <- names(featurelist)
+  fnames <- c()
+  for(i in 1: length(featurelist)){
+    #print(fnames.tmp[i])
+    prefix.tmp <- strsplit(fnames.tmp[i],split="_")[[1]][1]
+    print(prefix.tmp)
+    tmp <- featurelist[[i]]
+    row.names(tmp) <- unlist(lapply(row.names(tmp), function(x)strsplit(x, split="\\(")[[1]][1]))
+    cn.tmp <- colnames(tmp)
+    cn.tmp <- paste0(prefix.tmp, "_",cn.tmp)
+    fnames <- c(fnames, cn.tmp)
+    tmp <- tmp[rowname.ref, ]
+    featuredata <- cbind(featuredata, as.matrix(tmp))
+  }
+  print(length(fnames))
+  print(fnames[1:3])
+  print(dim(featuredata))
+  colnames(featuredata) <- fnames
+  featuredata <- data.frame(featuredata)
+  featuredata
+}
