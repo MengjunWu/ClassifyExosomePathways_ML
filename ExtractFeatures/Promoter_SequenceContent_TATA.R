@@ -4,7 +4,7 @@ library("dplyr")
 library("reshape2")
 library("Biostrings")
 library("seqPattern")
-source("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/scripts/ExtractFeatures/FeatureExtraction_function.R")
+source("/binf-isilon/sandelin/people/mengjun/Exosome_ML/ExtractFeatures/FeatureExtraction_function.R")
 
 option_list = list(  
   make_option("--fastafiledir", type="character", default=NULL, 
@@ -17,7 +17,6 @@ opt = parse_args(OptionParser(option_list=option_list))
 fastafiledir <- opt$fastafiledir
 outdir <- opt$outdir
 
-#fastafiledir="/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/RunPrediction/Z8sensitiveVsZ8insensitive_denovo/TSS.window1200.fa"
 SequenceSet <- readDNAStringSet(fastafiledir)
 print(unique(width(SequenceSet)))
 ##For TATA and InR, the window size is fixed###
@@ -35,8 +34,8 @@ SequenceSet.Inr <- DNAStringSet(x=SequenceSet, start=start.Inr, end=end.Inr)
 
 
 
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/TATA_box.rda")
-load("/binf-isilon/sandelin/people/mengjun/Exosome_SLICCAGE_3end/Determinants_ExosomeSensitivity/Input_feature_preparation/INR.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/TATA_box.rda")
+load("/binf-isilon/sandelin/people/mengjun/Exosome_ML/Input_feature_data/INR.rda")
 TATA.motif.list <- list(RBP.ID=c("TATA_box"), TATA_box=TATA_box)
 Inr.motif.list <- list(RBP.ID=c("INR"), INR=INR)
 
